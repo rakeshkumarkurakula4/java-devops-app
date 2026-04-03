@@ -9,10 +9,10 @@ pipeline {
         }
 
         stage('Build') {
-            steps {
-                sh 'javac HelloWorld.java'
-            }
-        }
+    steps {
+        sh 'mvn clean package'
+    }
+}
 
         stage('Run') {
             steps {
