@@ -21,9 +21,10 @@ pipeline {
         }
 
         stage('Run') {
-            steps {
-                sh 'java -cp target/java-app-1.0.jar HelloWorld'
-            }
-        }
+    steps {
+        // Maven handles compilation and running
+        sh 'mvn compile exec:java -Dexec.mainClass="HelloWorld"'
+    }
+}
     }
 }
