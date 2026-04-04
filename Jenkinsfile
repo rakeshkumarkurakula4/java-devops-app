@@ -22,7 +22,7 @@ pipeline {
 
         stage('Run') {
     steps {
-        sh 'mvn exec:java -Dexec.mainClass="HelloWorld"'
+        sh 'java -cp target/java-app-1.0.jar HelloWorld'
     }
 }
     }
