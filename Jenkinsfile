@@ -2,21 +2,27 @@ pipeline {
     agent any
 
     stages {
-        stage('Clone') {
+        stage('Checkout') {
             steps {
-                echo 'Cloning repository...'
+                echo 'Cloning code...'
             }
         }
 
         stage('Build') {
-    steps {
-        sh 'mvn clean package'
-    }
-}
+            steps {
+                sh 'mvn clean compile'
+            }
+        }
+
+        stage('Package') {
+            steps {
+                sh 'mvn package'
+            }
+        }
 
         stage('Run') {
             steps {
-                sh 'java HelloWorld'
+                sh 'java -cp target/java-app-1.0.jar HelloWorld'
             }
         }
     }
