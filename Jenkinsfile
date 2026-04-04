@@ -22,8 +22,7 @@ pipeline {
 
         stage('Run') {
     steps {
-        // Maven handles compilation and running
-        sh 'mvn compile exec:java -Dexec.mainClass="HelloWorld"'
+        sh 'mvn exec:java -Dexec.mainClass="HelloWorld"'
     }
 }
     }
