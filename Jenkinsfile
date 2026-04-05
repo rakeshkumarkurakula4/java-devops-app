@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     stages {
+
         stage('Checkout') {
             steps {
                 echo 'Cloning code...'
@@ -10,20 +11,24 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'mvn clean compile'
+                sh 'mvn clean package'
             }
         }
 
-        stage('Package') {
+        stage('Docker Build') {
             steps {
-                sh 'mvn package'
+                sh 'sudo docker build -t java-app .'
             }
         }
 
-        stage('Run') {
-    steps {
-        sh 'java -cp target/java-app-1.0.jar HelloWorld'
-    }
-}
+        stage('Docker Run') {
+            steps {
+                sh '''
+                sudo docker stop java-app || true
+                sudo docker rm java-app || true
+                sudo docker run -d --name java-app java-app
+                '''
+            }
+        }
     }
 }
